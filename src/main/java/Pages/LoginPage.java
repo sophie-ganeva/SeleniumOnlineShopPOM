@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 import java.time.Duration;
 
 public class LoginPage {
@@ -19,6 +18,8 @@ public class LoginPage {
     By accountInfo = By.xpath("//div[@class='header_user_info']/a[@class='account']");
     By logOutBtn = By.xpath("//div[@class='header_user_info']/a[@class='logout']");
     By passForgottenBtn = By.xpath("//a[contains(text(),'Forgot your password?')]");
+    By alertBar = By.xpath("(//div[@class='alert alert-danger'])[1]");
+
 
     public LoginPage(WebDriver dr, String email) {
         driver = dr;
@@ -27,7 +28,10 @@ public class LoginPage {
     }
 
     public void login(String email, String password)  {
-        if(validateEmail(email) && validatePassword(password)) {
+        WebElement alertMessage = driver.findElement(alertBar);
+        boolean isAlertShown = alertMessage.isDisplayed();
+
+        if (validateEmail(email) && validatePassword(password) && !isAlertShown) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(loginForm));
             wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).sendKeys(email);
             wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
@@ -44,8 +48,9 @@ public class LoginPage {
         System.out.println("Check Account Info passed");
     }
 
-    public void openForgottenPasswordPage(){
+    public ForgottenPasswordPage openForgottenPasswordPage(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(passForgottenBtn)).click();
+        return new ForgottenPasswordPage(driver);
     }
 
     public void logOut(){

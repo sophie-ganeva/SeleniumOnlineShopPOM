@@ -12,15 +12,16 @@ public class HomePage {
     String email;
     String url = "http://www.automationpractice.pl/index.php?";
     By sighInBtn = By.className("login");
-    By contactUsBtn = By.xpath("//div[@id='contact-link']/a[@title='Contact Us']");
+    By contactUsBtn = By.xpath("//div[@id='contact-link']/a[@title='Contact us']");
 
     //constructor; must have driver and wait;
-    public HomePage(WebDriver dr){
+    public HomePage(WebDriver dr,String email){
         this.driver = dr;
         wait = new WebDriverWait(dr, Duration.ofSeconds(10));
+        this.email = email;
     }
 
-    public void navigateTo(){
+    public void navigateTo(String url){
         driver.manage().window().maximize();
         driver.get(url);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
@@ -29,14 +30,14 @@ public class HomePage {
     public LoginPage openSignInPage(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(sighInBtn)).click();
         return new LoginPage(driver,email);
+
     }
-    public void openContactUsPage(){
+    public ContactUsPage openContactUsPage(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(contactUsBtn)).click();
+        return new ContactUsPage(driver);
     }
 
     public void closePage(){
         driver.close();
     }
-
-
 }
