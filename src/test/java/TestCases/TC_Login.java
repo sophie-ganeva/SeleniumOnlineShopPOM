@@ -31,7 +31,6 @@ public class TC_Login {
         driver.quit();
     }
 
-
     public void login(String email, String password, String userInfo) throws IOException {
         HomePage homePage = new HomePage(driver,"");
         homePage.navigateTo(url);
@@ -90,7 +89,7 @@ public class TC_Login {
         forgottenPasswordPage.closePage();
     }
 
-    //TODO: this test is failing
+    //TODO: this test is failing - need to investigate
     @Test
     public void forgottenPasswordWithAnExistingEmail(){
         String email = "test123@abv.bg";

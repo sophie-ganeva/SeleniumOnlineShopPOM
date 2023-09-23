@@ -1,3 +1,4 @@
+import AutoFramework.Utilities.Log;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -37,8 +38,11 @@ public class LoginPage {
             wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
             wait.until(ExpectedConditions.visibilityOfElementLocated(submitBtn)).click();
             System.out.println("Login passed");
+            Log.info("Login passed");
         }else{
-            System.out.println("Wrong email input");
+            Log.error("Wrong email or password input");
+            System.out.println("Wrong email or password input");
+            throw new IllegalArgumentException("Wrong email or password");
         }
     }
 
