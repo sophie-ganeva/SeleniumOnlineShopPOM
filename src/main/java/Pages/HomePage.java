@@ -1,3 +1,4 @@
+import AutoFramework.Utilities.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,6 +23,7 @@ public class HomePage {
     }
 
     public void navigateTo(String url){
+        Log.info("Open "+url);
         driver.manage().window().maximize();
         driver.get(url);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);

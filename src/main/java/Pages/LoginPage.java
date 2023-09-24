@@ -22,6 +22,10 @@ public class LoginPage {
     By logOutBtn = By.xpath("//div[@class='header_user_info']/a[@class='logout']");
     By passForgottenBtn = By.xpath("//a[contains(text(),'Forgot your password?')]");
     By alertBar = By.xpath("(//div[@class='alert alert-danger'])[1]");
+    By createAccountForm = By.id("create-account_form");
+    By emailCreateField = By.id("email_create");
+    By submitCreateAccountBtn = By.id("SubmitCreate");
+    By homeLink = By.linkText("Home");
 
 
     public LoginPage(WebDriver dr, String email) {
@@ -77,6 +81,17 @@ public class LoginPage {
             return false;
         }
         return true;
+    }
+
+    public RegistrationPage createAccount(String email){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(createAccountForm));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emailCreateField)).sendKeys(email);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(submitCreateAccountBtn)).click();
+        return new RegistrationPage(driver,email);
+    }
+
+    public void goToHomePage(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(homeLink)).click();
     }
 
     public void closePage(){

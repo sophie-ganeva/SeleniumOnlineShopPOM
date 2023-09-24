@@ -18,8 +18,10 @@ import java.util.Date;
 public class Screenshot {
     private static final String FOLDER_PATH = "C:\\Webdriver\\screenshots\\";
 
-    /* take a screenshot of the page or log the error
-    * write screenshot in a file */
+    /**************************************************************************************************
+     Take a screenshot of the page or log the error
+     Write screenshot in a file
+     **************************************************************************************************/
     public static BufferedImage takePageScreenshot(WebDriver dr, String screenshotName) throws IOException {
         File screenshot = ((TakesScreenshot)dr).getScreenshotAs(OutputType.FILE);
         try{
@@ -31,7 +33,9 @@ public class Screenshot {
         BufferedImage image = ImageIO.read(screenshot);
         return image;
     }
-    /* take a screenshot of an element or log the error */
+    /**************************************************************************************************
+     Take a screenshot of an element or log the error
+     **************************************************************************************************/
     public static BufferedImage takeWebElementScreenShot(WebElement el, String elementName) throws IOException {
         File file = el.getScreenshotAs(OutputType.FILE);
         try{

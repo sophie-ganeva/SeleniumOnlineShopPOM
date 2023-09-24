@@ -21,7 +21,7 @@ import java.util.Iterator;
 
 public class MainTestSetUp {
     private static final String CHROME_DRIVER_PATH = "C://Webdriver//chromedriver.exe";
-    private static final String INIT_PATH = "C://Webdriver//inits//Book.xlsx";
+    private static final String INIT_PATH = "C://Webdriver//inits//Credentials.xlsx";
     private static final String CHROME = "CHROME";
     private static final String FIREFOX = "FIREFOX";
     public WebDriver driver;
