@@ -1,4 +1,5 @@
 import AutoFramework.Utilities.Log;
+import AutoFramework.Utilities.Screenshot;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class LoginPage {
@@ -28,11 +30,12 @@ public class LoginPage {
         this.email = email;
     }
 
-    public void login(String email, String password)  {
+    public void login(String email, String password)  throws IOException {
         WebElement alertMessage = driver.findElement(alertBar);
         boolean isAlertShown = alertMessage.isDisplayed();
 
         if (validateEmail(email) && validatePassword(password) && !isAlertShown) {
+//            Screenshot.takeWebElementScreenShot(wait.until(ExpectedConditions.visibilityOfElementLocated(loginForm)),"loginForm");
             wait.until(ExpectedConditions.visibilityOfElementLocated(loginForm));
             wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).sendKeys(email);
             wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
