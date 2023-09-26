@@ -73,7 +73,6 @@ public class ForgottenPasswordPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(retrievePasswordBtn)).click();
         WebElement confirmationElement = driver.findElement(confirmationMsgValidAccount);
         String confirmationMsg = confirmationElement.getText();
-//        WebElement confirmationMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(confirmationMsgValidAccount));
         System.out.println(confirmationMsg);
         Assert.assertEquals(expectedText, confirmationMsg);
         System.out.println("Retrieve Password With Valid Email passed");

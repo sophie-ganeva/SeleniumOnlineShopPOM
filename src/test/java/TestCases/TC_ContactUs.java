@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class TC_ContactUs {
     WebDriver driver;
-    String url = "http://www.automationpractice.pl/index.php?";
+    String url = "http://www.automationpractice.pl/index.php";
 
     @Before
     public void SetUp(){

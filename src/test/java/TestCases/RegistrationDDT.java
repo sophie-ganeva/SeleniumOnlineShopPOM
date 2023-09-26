@@ -23,6 +23,7 @@ public class RegistrationDDT extends MainTestSetUp {
     /**************************************************************************************************
      In order to register a new user go to excel file "UserAccounts" and choose an email
      then go to excel file "Credentials" and change the email for RegistrationDDT
+     Only mandatory fields are filed out
      **************************************************************************************************/
     @Test
     public void registrationNewUser() throws InterruptedException, IOException {
@@ -31,6 +32,20 @@ public class RegistrationDDT extends MainTestSetUp {
         LoginPage loginPage = homePage.openSignInPage();
         RegistrationPage registrationPage = loginPage.createAccount(this.getUsername());
         registrationPage.registerWithDataFromFile();
+    }
+
+    /**************************************************************************************************
+     In order to register a new user go to excel file "UserAccounts" and choose an email
+     then go to excel file "Credentials" and change the email for RegistrationDDT
+     All fields are filed out
+     **************************************************************************************************/
+    @Test
+    public void registrationNewUserAllDataFilledout() throws InterruptedException, IOException {
+        HomePage homePage = new HomePage(driver,this.getUsername());
+        homePage.navigateTo(this.getMainURL());
+        LoginPage loginPage = homePage.openSignInPage();
+        RegistrationPage registrationPage = loginPage.createAccount(this.getUsername());
+        registrationPage.registerWithDataFromFileAllFields();
     }
 
     /**************************************************************************************************
@@ -45,5 +60,5 @@ public class RegistrationDDT extends MainTestSetUp {
         String expectedMessage = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
         loginPage.checkExistingUser(expectedMessage);
     }
-    
+
 }

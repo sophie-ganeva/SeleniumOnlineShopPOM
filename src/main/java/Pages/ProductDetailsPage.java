@@ -24,16 +24,6 @@ public class ProductDetailsPage {
         this.driver = dr;
         wait = new WebDriverWait(dr, Duration.ofSeconds(10));
     }
-//    public void addToCard(ItemDetails details){
-//        WebElement quantity = wait.until(ExpectedConditions.visibilityOfElementLocated(quantity_wanted));
-//        quantity.clear();
-//        quantity.sendKeys(details.quantity);
-//        Select sel = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(group_1)));
-//        sel.selectByVisibleText(details.size);
-//        String text = String.format("//ul[@id='color_to_pick_list']/li/a[@title='%s']",details.color);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(text))).click();
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(add_to_cart_btn)).click();
-//    }
 
     public void addToCard(ItemDetails details) throws InterruptedException {
         Actions ac = new Actions(driver);

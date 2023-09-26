@@ -45,7 +45,9 @@ public class RegistrationPage {
         this.email = email;
     }
 
-    /* fill out only mandatory fields for registration */
+    /************************************************************************************************************
+     Fill out only mandatory fields for registration - first name,last name,password
+     ************************************************************************************************************/
     public void registerWithDataFromFile() throws InterruptedException {
         List<String> details = new ArrayList<>();
         try {
@@ -59,35 +61,61 @@ public class RegistrationPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(customer_lastname)).sendKeys(details.get(1));
         Thread.sleep(2000L);
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwd)).sendKeys(details.get(2));
-//        Thread.sleep(2000L);
-//        String myDay = details.get(3);
-//        String myMonth = details.get(4);
-//        String myYear = details.get(5);
-//        Birthdate(myDay,myMonth,myYear);
 
         WebElement checkBox = driver.findElement(newsletterBox);
         if(!checkBox.isSelected()){
             checkBox.click();
         }
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(address1)).sendKeys(details.get(7));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(city)).sendKeys(details.get(8));
-        //select the state
-//        WebElement dropdownState = driver.findElement(dropdown_id_state);
-//        dropdownState.click();
-//        Select state = new Select(driver.findElement(id_state));
-//        state.selectByVisibleText(details.get(9));
-//        Thread.sleep(2000L);
-//
-//        //format the postcode and phone number fields in the excel file as TEXT !!!
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(postcode)).sendKeys(details.get(10));
-//        Thread.sleep(2000L);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(phone_mobile)).sendKeys(details.get(11));
-//        Thread.sleep(2000L);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(alias)).sendKeys(details.get(12));
-//        Thread.sleep(2000L);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterBtn)).click();
+        submitRegistrationForm();
     }
 
+    /************************************************************************************************************
+     Fill out all fields for registration - first name,last name,password, address, city, phone, state, county
+     ************************************************************************************************************/
+    public void registerWithDataFromFileAllFields() throws InterruptedException {
+        List<String> details = new ArrayList<>();
+        try {
+            details = ReadFromXML.readFromXmlFile(personXmlPath,email);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(customer_firstname)).sendKeys(details.get(0));
+        Thread.sleep(2000L);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(customer_lastname)).sendKeys(details.get(1));
+        Thread.sleep(2000L);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwd)).sendKeys(details.get(2));
+        Thread.sleep(2000L);
+        String myDay = details.get(3);
+        String myMonth = details.get(4);
+        String myYear = details.get(5);
+        Birthdate(myDay,myMonth,myYear);
+
+        WebElement checkBox = driver.findElement(newsletterBox);
+        if(!checkBox.isSelected()){
+            checkBox.click();
+        }
+        wait.until(ExpectedConditions.visibilityOfElementLocated(address1)).sendKeys(details.get(7));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(city)).sendKeys(details.get(8));
+        //select the state
+        WebElement dropdownState = driver.findElement(dropdown_id_state);
+        dropdownState.click();
+        Select state = new Select(driver.findElement(id_state));
+        state.selectByVisibleText(details.get(9));
+        Thread.sleep(2000L);
+
+        //format the postcode and phone number fields in the excel file as TEXT !!!
+        wait.until(ExpectedConditions.visibilityOfElementLocated(postcode)).sendKeys(details.get(10));
+        Thread.sleep(2000L);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(phone_mobile)).sendKeys(details.get(11));
+        Thread.sleep(2000L);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(alias)).sendKeys(details.get(12));
+        Thread.sleep(2000L);
+        submitRegistrationForm();
+    }
+    /************************************************************************************************************
+     Select the Birthday dropdowns for day, month, year
+     ************************************************************************************************************/
     private void Birthdate(String myDay, String myMonth, String myYear) throws InterruptedException {
         Select day = new Select(driver.findElement(days));
         Select month = new Select(driver.findElement(months));
@@ -109,11 +137,14 @@ public class RegistrationPage {
         Thread.sleep(2000L);
     }
 
+    /************************************************************************************************************
+     Simple registration, used in no data driven testing, data is hard coded in the test
+     ************************************************************************************************************/
     public void register(String firstName, String lastName,String email, String password ) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(customer_firstname)).sendKeys(firstName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(customer_lastname)).sendKeys(lastName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwd)).sendKeys(password);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterBtn)).click();
+        submitRegistrationForm();
 
     }
 

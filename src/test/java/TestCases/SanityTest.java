@@ -59,32 +59,47 @@ public class SanityTest extends MainTestSetUp {
         product.addToCard(item);
     }
 
-
+    /**************************************************************************************************
+     Login, select all items one by one from "Item files", add them to the card
+     Proceed to check out.
+     There are several steps needed to finish the order:
+     - summary  - see the total price and items of the order
+     - address  - get first & last name, write address in the text field and assert it
+     - shipping - accept terms and conditions (checkbox)
+     - payment - check items, their prices, total price and pay
+     **************************************************************************************************/
     @Test
     public void sanityTest() throws IOException, InterruptedException {
         HomePage homePage = new HomePage(driver,this.getUsername());
         homePage.navigateTo(this.getMainURL());
+
         LoginPage loginPage = homePage.openSignInPage();
         loginPage.login(this.getUsername(),this.getPassword());
         loginPage.goToHomePage();
         homePage.goToAllItems();
+
         ProductDetailsPage product = homePage.openItem(item.itemName);
         product.addToCard(item);
         product.proceedToCheckOut();
+
         //TODO: make a separate page SummaryPage
-//        product.proceedToCheckOutInSummary();
-//        AddressPage addressPage = new AddressPage(this.driver);
-//        String nameFromInput = addressPage.getTextFromNameField();
-//        Assert.assertEquals(this.getGetUsernameLoggedInfo(),nameFromInput);
-//        addressPage.setOrderAddress("varna, Alaska 12345");
-//        addressPage.proceedToCheckOut();
-//        ShippingPage shippingPage = new ShippingPage(driver);
-//        shippingPage.acceptAndProceed();
-//        PaymentPage paymentPage = new PaymentPage(driver);
-//        paymentPage.checkItemName(item.itemName);
-//        paymentPage.checkItemPrice(item.price);
-//        paymentPage.checkTotalPrice(item);
-//        paymentPage.pay();
+        product.proceedToCheckOutInSummary();
+
+        AddressPage addressPage = new AddressPage(this.driver);
+        String nameFromInput = addressPage.getTextFromNameField();
+        Assert.assertEquals(this.getGetUsernameLoggedInfo(),nameFromInput);
+        addressPage.setOrderAddressInTextArea("Sitka, Alaska 10000");
+        addressPage.proceedToCheckOut();
+
+        ShippingPage shippingPage = new ShippingPage(driver);
+        shippingPage.acceptAndProceed();
+        shippingPage.proceedToCheckOut();
+
+        PaymentPage paymentPage = new PaymentPage(driver);
+        paymentPage.checkItemName(item.itemName);
+        paymentPage.checkItemPrice(item.price);
+        paymentPage.checkTotalPrice(item);
+        paymentPage.pay();
     }
 
 }
