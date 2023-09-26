@@ -26,7 +26,7 @@ public class LoginPage {
     By emailCreateField = By.id("email_create");
     By submitCreateAccountBtn = By.id("SubmitCreate");
     By homeLink = By.linkText("Home");
-
+    By alreadyRegisteredError = By.xpath("(//div[@class='alert alert-danger'])[1]");
 
     public LoginPage(WebDriver dr, String email) {
         driver = dr;
@@ -88,6 +88,11 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(emailCreateField)).sendKeys(email);
         wait.until(ExpectedConditions.visibilityOfElementLocated(submitCreateAccountBtn)).click();
         return new RegistrationPage(driver,email);
+    }
+    public void checkExistingUser(String expectedText){
+        WebElement check = wait.until(ExpectedConditions.visibilityOfElementLocated(alreadyRegisteredError));
+        Assert.assertEquals(expectedText,check.getText());
+        System.out.println("User has already been registered");
     }
 
     public void goToHomePage(){

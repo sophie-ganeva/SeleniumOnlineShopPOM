@@ -69,7 +69,6 @@ public class SanityTest extends MainTestSetUp {
         loginPage.goToHomePage();
         homePage.goToAllItems();
         ProductDetailsPage product = homePage.openItem(item.itemName);
-//        ProductDetailsPage product = homePage.openCurrentItem("Printed Dress");
         product.addToCard(item);
         product.proceedToCheckOut();
         //TODO: make a separate page SummaryPage

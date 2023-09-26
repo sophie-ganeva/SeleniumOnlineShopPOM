@@ -39,7 +39,6 @@ public class RegistrationPage {
     By alias = By.id("alias");
     By RegisterBtn = By.id("submitAccount");
 
-
     public RegistrationPage(WebDriver dr, String email){
         this.driver = dr;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -117,6 +116,7 @@ public class RegistrationPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterBtn)).click();
 
     }
+
     public void submitRegistrationForm(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterBtn)).click();
         System.out.println("Registration of an user passed");
