@@ -1,4 +1,6 @@
+import AutoFramework.Utilities.Log;
 import AutoFramework.Utilities.ReadFromXML;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,6 +39,7 @@ public class RegistrationPage {
     By alias = By.id("alias");
     By RegisterBtn = By.id("submitAccount");
 
+
     public RegistrationPage(WebDriver dr, String email){
         this.driver = dr;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -44,7 +47,7 @@ public class RegistrationPage {
     }
 
     /* fill out only mandatory fields for registration */
-    public void register() throws InterruptedException {
+    public void registerWithDataFromFile() throws InterruptedException {
         List<String> details = new ArrayList<>();
         try {
             details = ReadFromXML.readFromXmlFile(personXmlPath,email);
@@ -56,7 +59,7 @@ public class RegistrationPage {
         Thread.sleep(2000L);
         wait.until(ExpectedConditions.visibilityOfElementLocated(customer_lastname)).sendKeys(details.get(1));
         Thread.sleep(2000L);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(passwd)).sendKeys(details.get(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwd)).sendKeys(details.get(2));
 //        Thread.sleep(2000L);
 //        String myDay = details.get(3);
 //        String myMonth = details.get(4);
@@ -107,8 +110,17 @@ public class RegistrationPage {
         Thread.sleep(2000L);
     }
 
+    public void register(String firstName, String lastName,String email, String password ) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(customer_firstname)).sendKeys(firstName);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(customer_lastname)).sendKeys(lastName);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwd)).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterBtn)).click();
+
+    }
     public void submitRegistrationForm(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterBtn)).click();
         System.out.println("Registration of an user passed");
     }
+
+
 }
